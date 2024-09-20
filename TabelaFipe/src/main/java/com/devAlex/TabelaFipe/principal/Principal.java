@@ -1,7 +1,9 @@
 package com.devAlex.TabelaFipe.principal;
 
+import com.devAlex.TabelaFipe.model.DadosVeiculo;
 import com.devAlex.TabelaFipe.service.ConsumoApi;
 import com.devAlex.TabelaFipe.service.ConverteDados;
+import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,11 +30,25 @@ public class Principal {
 
         try {
             System.out.println("Digite uma das opções para consultar valores:");
-            String nomeVeiculo = leitura.nextLine();
-            nomeVeiculo.toLowerCase();
+            String nomeVeiculo = leitura.nextLine().toLowerCase();
+
+            String endpoint = switch (nomeVeiculo) {
+                case "carro" -> "carros";
+                case "moto" -> "motos";
+                case "caminhão" -> "caminhoes";
+                default -> throw new IllegalArgumentException("Veículo não reconhecido");
+            };
+
+
+            var json = consumo.obterDados(ENDERECO + endpoint + MARCAS);
+
+            List<DadosVeiculo> listaDadosVeiculos = conversor.obterDados(json, new TypeReference<List<DadosVeiculo>>() {});
+            for (DadosVeiculo dados : listaDadosVeiculos) {
+                System.out.println(dados);
+            }
 
         } catch (Exception e) {
-            System.out.println("Nome inválido");;
+            System.out.println("Erro ao obter dados: " + e.getMessage());
         }
 
     }
