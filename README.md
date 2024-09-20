@@ -1,5 +1,5 @@
 # Java Spring Desafio TabelaFipe
-# Objetivo
+# Objetivo:
 > Como desafio proposto após a conclusão do curso 'Java: Trabalhando com Lambdas, Streams e Spring Framework' da Alura, foi desenvolvida uma aplicação back-end em Java,
 > utilizando o Spring Framework com interface de linha de comando (CLI). O objetivo é realizar consultas à [API FIPE HTTP REST](https://deividfortuna.github.io/fipe/), que fornece informações sobre veículos no Brasil.
 > A aplicação permite que os usuários pesquisem dados, preços e características de veículos, de forma similar ao que é oferecido no site da [Tabela FIPE](https://veiculos.fipe.org.br/). Terá como objetivo consolidar os conhecimentos obtidos.
@@ -137,4 +137,7 @@
   
   Veiculo [valor R$ 10.788,00, marca=Fiat, modelo=Palio Weekend Adventure 1.6 8V/16V, ano=1999, combustivel=Gasolina
   ~~~~
-    
+# Desafios Enfrentados
+- Desafios do Primeiro Dia de Implementação:
+Enfrentei o desafio de manipular os dados recebidos em uma lista. Após muita pesquisa, descobri a importância da biblioteca TypeReference, que informa ao Jackson que o objeto a ser deserializado é uma lista de DadosVeiculo. Com         isso, consegui armazenar e listar os dados de forma eficiente.
+
