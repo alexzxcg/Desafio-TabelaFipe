@@ -8,7 +8,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Principal {
 
@@ -44,8 +46,8 @@ public class Principal {
 
             var json = consumo.obterDados(ENDERECO + endpoint + MARCAS);
 
-            List<DadosVeiculo> listaDadosVeiculos = conversor.obterDados(json, new TypeReference<List<DadosVeiculo>>() {});
-            for (DadosVeiculo dados : listaDadosVeiculos) {
+            List<DadosVeiculo> listaDadosVeiculosPorMarca = conversor.obterDados(json, new TypeReference<List<DadosVeiculo>>() {});
+            for (DadosVeiculo dados : listaDadosVeiculosPorMarca) {
                 System.out.println(dados);
             }
 
@@ -58,6 +60,21 @@ public class Principal {
             List<DadosVeiculo> listaDadosVeiculosPorModelo = dadosModelo.modelos();
             for (DadosVeiculo dados : listaDadosVeiculosPorModelo) {
                 System.out.println("Cód: " + dados.codigo() + " Descrição: " + dados.nome());
+            }
+
+            System.out.println("Digite um trecho do nome do veículo para consulta:");
+            String trechoNomeBuscado = leitura.nextLine().toLowerCase();
+            List<DadosVeiculo> veiculosFiltrados = listaDadosVeiculosPorModelo.stream()
+                    .filter(dados -> dados.nome().toLowerCase().contains(trechoNomeBuscado))
+                    .collect(Collectors.toList());
+
+            // Exibir todos os veículos que contêm o trecho digitado
+            if (veiculosFiltrados.isEmpty()) {
+                System.out.println("Nenhum veículo encontrado");
+            } else {
+                veiculosFiltrados.forEach(dados ->
+                        System.out.println("Cód: " + dados.codigo() + " Descrição: " + dados.nome())
+                );
             }
 
         } catch (Exception e) {
