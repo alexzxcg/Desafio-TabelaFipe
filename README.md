@@ -137,7 +137,9 @@
   
   Veiculo [valor R$ 10.788,00, marca=Fiat, modelo=Palio Weekend Adventure 1.6 8V/16V, ano=1999, combustivel=Gasolina
   ~~~~
-# Desafios Enfrentados
-- Desafios do Primeiro Dia de Implementação:
-Enfrentei o desafio de manipular os dados recebidos em uma lista. Após muita pesquisa, descobri a importância da biblioteca TypeReference, que informa ao Jackson que o objeto a ser deserializado é uma lista de DadosVeiculo. Com         isso, consegui armazenar e listar os dados de forma eficiente.
+# Desafios Enfrentados no Desenvolvimento
+- Enfrentei o desafio de manipular os dados recebidos em uma lista. Após muita pesquisa, descobri a importância da biblioteca TypeReference, que informa ao Jackson que o objeto a ser deserializado é uma lista de DadosVeiculo. Com         isso, consegui armazenar e listar os dados de forma eficiente.
+- Mas o maior dos desafios foi a implementação da consulta que busca informações detalhadas dos veículos. Para isso, precisei iterar sobre cada ano obtido para um modelo específico, modificando a URL em cada iteração para coletar todos os dados registrados.         Inicialmente, considerei uma abordagem "manual" utilizando um loop for para essa tarefa.
+
+    Após conseguir os resultados esperados, busquei otimizar o código, explorando como poderia utilizar streams e lambdas para realizar essa consulta de maneira mais funcional. Depois de algumas pesquisas e testes, finalizei a implementação, obtendo o resultado que     atendia ao desafio proposto de forma eficiente.
 
