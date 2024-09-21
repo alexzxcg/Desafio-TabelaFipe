@@ -97,6 +97,20 @@ public class Principal {
             var jsonAnos = consumo.obterDados(ENDERECO + endpoint + MARCAS + codigoMarca + MODELOS + codigoModelo + ANOS);
             List<DadosVeiculo> listaAnos = conversor.obterDados(jsonAnos, new TypeReference<List<DadosVeiculo>>() {});
 
+
+            //Maneira "manual" de conseguir os detalhes dos veiculos
+           /* for (DadosVeiculo ano : listaAnos) {
+                String codigoAno = ano.codigo(); // Obter o código do ano
+                var jsonDetalhes = consumo.obterDados(ENDERECO + endpoint + MARCAS + codigoMarca + MODELOS + codigoModelo + "/anos/" + codigoAno);
+
+                // Aqui você deve deserializar a resposta para um objeto do tipo DadosVeiculoPorAno
+                DadosVeiculoPorAno detalhesVeiculo = conversor.obterDados(jsonDetalhes, DadosVeiculoPorAno.class);
+
+                // Exibir as informações
+                System.out.println(detalhesVeiculo.toString());
+            }*/
+
+
             // Para cada ano, obter e exibir os detalhes do veículo
             listaAnos.stream()
                     .map(ano -> {
