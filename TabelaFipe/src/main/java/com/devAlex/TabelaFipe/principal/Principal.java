@@ -1,5 +1,6 @@
 package com.devAlex.TabelaFipe.principal;
 
+import com.devAlex.TabelaFipe.model.DadosModelo;
 import com.devAlex.TabelaFipe.model.DadosVeiculo;
 import com.devAlex.TabelaFipe.service.ConsumoApi;
 import com.devAlex.TabelaFipe.service.ConverteDados;
@@ -16,7 +17,8 @@ public class Principal {
     private ConverteDados conversor = new ConverteDados();
 
     private final String ENDERECO = "https://parallelum.com.br/fipe/api/v1/";
-    private final String MARCAS = "/marcas";
+    private final String MARCAS = "/marcas/";
+    private final String MODELOS = "/modelos/";
     private List<String> listaNomeVeiculos = Arrays.asList("Carro", "Moto", "Caminhão");
 
 
@@ -45,6 +47,17 @@ public class Principal {
             List<DadosVeiculo> listaDadosVeiculos = conversor.obterDados(json, new TypeReference<List<DadosVeiculo>>() {});
             for (DadosVeiculo dados : listaDadosVeiculos) {
                 System.out.println(dados);
+            }
+
+            System.out.println("Informe o código da marca para consulta:");
+
+            String codigoInformado = leitura.nextLine();
+            json = consumo.obterDados(ENDERECO + endpoint + MARCAS + codigoInformado + MODELOS);
+            DadosModelo dadosModelo = conversor.obterDados(json, DadosModelo.class);
+
+            List<DadosVeiculo> listaDadosVeiculosPorModelo = dadosModelo.modelos();
+            for (DadosVeiculo dados : listaDadosVeiculosPorModelo) {
+                System.out.println("Cód: " + dados.codigo() + " Descrição: " + dados.nome());
             }
 
         } catch (Exception e) {
