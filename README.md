@@ -141,6 +141,8 @@
 - Enfrentei o desafio de manipular os dados recebidos em uma lista. Após muita pesquisa, descobri a importância da biblioteca TypeReference, que informa ao Jackson que o objeto a ser deserializado é uma lista de DadosVeiculo. Com         isso, consegui armazenar e listar os dados de forma eficiente.
 - Mas o maior dos desafios foi a implementação da consulta que busca informações detalhadas dos veículos. Para isso, precisei iterar sobre cada ano obtido para um modelo específico, modificando a URL em cada iteração para coletar todos os dados registrados.         Inicialmente, considerei uma abordagem "manual" utilizando um loop for para essa tarefa.
   ~~~~
+  var jsonAnos = consumo.obterDados(ENDERECO + endpoint + MARCAS + codigoMarca + MODELOS + codigoModelo + ANOS);
+  List<DadosVeiculo> listaAnos = conversor.obterListaDados(jsonAnos, new TypeReference<List<DadosVeiculo>>() {});
   for (DadosVeiculo ano : listaAnos) {
                 String codigoAno = ano.codigo(); // Obter o código do ano
                 var jsonDetalhes = consumo.obterDados(ENDERECO + endpoint + MARCAS + codigoMarca + MODELOS + codigoModelo + "/anos/" + codigoAno);
@@ -153,6 +155,8 @@
 
     Após conseguir os resultados esperados, busquei otimizar o código, explorando como poderia utilizar streams e lambdas para realizar essa consulta de maneira mais funcional. Depois de algumas pesquisas e testes, finalizei a implementação, obtendo o resultado que     atendia ao desafio proposto de forma eficiente.
   ~~~~
+   var jsonAnos = consumo.obterDados(ENDERECO + endpoint + MARCAS + codigoMarca + MODELOS + codigoModelo + ANOS);
+   List<DadosVeiculo> listaAnos = conversor.obterListaDados(jsonAnos, new TypeReference<List<DadosVeiculo>>() {});
    listaAnos.stream()
                     .map(ano -> {
                         String codigoAno = ano.codigo(); // Obter o código do ano
