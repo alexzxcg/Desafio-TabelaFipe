@@ -140,6 +140,29 @@
 # Desafios Enfrentados no Desenvolvimento
 - Enfrentei o desafio de manipular os dados recebidos em uma lista. Após muita pesquisa, descobri a importância da biblioteca TypeReference, que informa ao Jackson que o objeto a ser deserializado é uma lista de DadosVeiculo. Com         isso, consegui armazenar e listar os dados de forma eficiente.
 - Mas o maior dos desafios foi a implementação da consulta que busca informações detalhadas dos veículos. Para isso, precisei iterar sobre cada ano obtido para um modelo específico, modificando a URL em cada iteração para coletar todos os dados registrados.         Inicialmente, considerei uma abordagem "manual" utilizando um loop for para essa tarefa.
+  ~~~~
+  for (DadosVeiculo ano : listaAnos) {
+                String codigoAno = ano.codigo(); // Obter o código do ano
+                var jsonDetalhes = consumo.obterDados(ENDERECO + endpoint + MARCAS + codigoMarca + MODELOS + codigoModelo + "/anos/" + codigoAno);
+                // Aqui você deve deserializar a resposta para um objeto do tipo DadosVeiculoPorAno
+                DadosVeiculoPorAno detalhesVeiculo = conversor.obterDados(jsonDetalhes, DadosVeiculoPorAno.class);
+                // Exibir as informações
+                System.out.println(detalhesVeiculo.toString());
+            }
+  ~~~~
 
     Após conseguir os resultados esperados, busquei otimizar o código, explorando como poderia utilizar streams e lambdas para realizar essa consulta de maneira mais funcional. Depois de algumas pesquisas e testes, finalizei a implementação, obtendo o resultado que     atendia ao desafio proposto de forma eficiente.
+  ~~~~
+   listaAnos.stream()
+                    .map(ano -> {
+                        String codigoAno = ano.codigo(); // Obter o código do ano
+                        var jsonDetalhes = consumo.obterDados(ENDERECO + endpoint + MARCAS + codigoMarca + MODELOS + codigoModelo + ANOS + codigoAno);
+                        // Deserializar a resposta para um objeto do tipo DadosVeiculoPorAno
+                        return conversor.obterDados(jsonDetalhes, DadosVeiculoPorAno.class);
+                    })
+                    .forEach(detalhesVeiculo -> {
+                        // Exibir as informações detalhadas do veículo
+                        System.out.println(detalhesVeiculo.toString());
+                    });
+  ~~~~
 
