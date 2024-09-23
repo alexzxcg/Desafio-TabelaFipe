@@ -11,7 +11,7 @@ public class ConverteDados implements  IConverteDados {
     private ObjectMapper mapper = new ObjectMapper();
 
     @Override
-    public <T> T obterDados(String json, Class<T> classe) {
+    public <T> T obterListaDados(String json, Class<T> classe) {
         try {
             return mapper.readValue(json, classe);
         } catch (JsonProcessingException e) {
@@ -20,7 +20,7 @@ public class ConverteDados implements  IConverteDados {
     }
 
     @Override
-    public <T> List<T> obterDados(String json, TypeReference<List<T>> typeReference) {
+    public <T> List<T> obterListaDados(String json, TypeReference<List<T>> typeReference) {
         try {
             return mapper.readValue(json, typeReference);
         } catch (JsonProcessingException e) {

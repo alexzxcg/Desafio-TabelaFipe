@@ -24,13 +24,13 @@ public class VeiculoService {
     // Método para obter marcas disponíveis para um tipo de veículo
     public List<DadosVeiculo> obterMarcas(String tipoVeiculo) {
         var json = consumo.obterDados(ENDERECO + tipoVeiculo + MARCAS);
-        return conversor.obterDados(json, new TypeReference<List<DadosVeiculo>>() {});
+        return conversor.obterListaDados(json, new TypeReference<List<DadosVeiculo>>() {});
     }
 
     // Método para obter modelos disponíveis para uma marca específica
     public DadosModelo obterModelos(String tipoVeiculo, String codigoMarca) {
         var json = consumo.obterDados(ENDERECO + tipoVeiculo + MARCAS + codigoMarca + MODELOS);
-        return conversor.obterDados(json, DadosModelo.class);
+        return conversor.obterListaDados(json, DadosModelo.class);
     }
 
     // Método para filtrar a lista de veículos por um trecho do nome
@@ -43,14 +43,14 @@ public class VeiculoService {
     // Método para obter detalhes dos veículos por ano para um modelo específico
     public List<DadosVeiculoPorAno> obterDetalhesPorAno(String tipoVeiculo, String codigoMarca, String codigoModelo) {
         var jsonAnos = consumo.obterDados(ENDERECO + tipoVeiculo + MARCAS + codigoMarca + MODELOS + codigoModelo + ANOS);
-        List<DadosVeiculo> listaAnos = conversor.obterDados(jsonAnos, new TypeReference<List<DadosVeiculo>>() {});
+        List<DadosVeiculo> listaAnos = conversor.obterListaDados(jsonAnos, new TypeReference<List<DadosVeiculo>>() {});
 
         // Mapeia cada ano para obter os detalhes do veículo
         return listaAnos.stream()
                 .map(ano -> {
                     String codigoAno = ano.codigo();
                     var jsonDetalhes = consumo.obterDados(ENDERECO + tipoVeiculo + MARCAS + codigoMarca + MODELOS + codigoModelo + ANOS + codigoAno);
-                    return conversor.obterDados(jsonDetalhes, DadosVeiculoPorAno.class);
+                    return conversor.obterListaDados(jsonDetalhes, DadosVeiculoPorAno.class);
                 })
                 .collect(Collectors.toList());
     }
