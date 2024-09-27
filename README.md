@@ -1,16 +1,15 @@
-# Java Spring Desafio TabelaFipe
-# Objetivo:
-> Como desafio proposto após a conclusão do curso 'Java: Trabalhando com Lambdas, Streams e Spring Framework' da Alura, foi desenvolvida uma aplicação back-end em Java,
-> utilizando o Spring Framework com interface de linha de comando (CLI). O objetivo é realizar consultas à [API FIPE HTTP REST](https://deividfortuna.github.io/fipe/), que fornece informações sobre veículos no Brasil.
-> A aplicação permite que os usuários pesquisem dados, preços e características de veículos, de forma similar ao que é oferecido no site da [Tabela FIPE](https://veiculos.fipe.org.br/). Terá como objetivo consolidar os conhecimentos obtidos.
+# Java Spring Desafio Tabela FIPE
+## Objetivo:
+> Desenvolver uma aplicação back-end em Java utilizando o Spring Framework com uma interface de linha de comando (CLI), para realizar consultas à [API FIPE HTTP REST](https://deividfortuna.github.io/fipe/). A aplicação permite pesquisar dados de veículos no Brasil, retornando informações como preços e características, semelhante ao que é oferecido no site da [Tabela FIPE](https://veiculos.fipe.org.br/). O foco do projeto é consolidar os conhecimentos adquiridos no curso "Java: Trabalhando com Lambdas, Streams e Spring Framework" da Alura.
 
-# Características do Projeto:
-- Integração com [FIPE HTTTP REST API](https://deividfortuna.github.io/fipe/): A aplicação fará requisições para obter informações sobre veiculos, caminhões ou motos, processando e manipulando esses dados para fornecer uma experiência robusta de consultas.
-- Spring Boot em Ação: O principal objetivo é consolidar conhecimentos sobre os recursos e funcionalidades do Spring Boot, explorando sua capacidade de lidar com operações de back-end de forma eficiente e escalável.
-- Ultlização de Lambdas e Streams: Ultilização das funções lambdas e a API de Streams do Java serão utilizadas para manipular e filtrar os dados fornecidos pela API FIPE, permitindo um processamento eficiente e simplificado das informações de veículos, como preços e características, de acordo com as consultas realizadas pelos usuários.
+## Funcionalidades
+- Consulta de veículos: Pesquise por carros, motos ou caminhões na base de dados da FIPE.
+- Integração com a API FIPE: Realiza requisições para a API FIPE e processa os dados recebidos.
+- Manipulação de dados: Uso de lambdas e Streams do Java para filtrar e processar informações de forma eficiente.
+- Interface de linha de comando (CLI): Permite ao usuário realizar consultas interativas via terminal.
 
-# O Que Esperar:
-- Na tela da aplicação, temos a primeira pergunta:
+## Fluxo de Execução
+- Ao iniciar a aplicação, será exibido o seguinte menu:
     ~~~~
     **** OPÇÕES ****
 
@@ -22,36 +21,17 @@
     
     Digite uma das opções para consultar valores:
     ~~~~
-- Vamos escolher "Carro", digitando essa palavra na tela, abaixo da pergunta.
-  ~~~~
-  Carro
-  ~~~~
-- Após o "Enter", o programa devolverá uma lista de códigos de Marcas.
+ - O usuário deve digitar "Carro", "Moto" ou "Caminhão" para continuar a consulta.
+      ~~~~
+      Carro
+      ~~~~
+- Seleção da Marca:
+    - Após escolher o tipo de veículo, a aplicação retornará uma lista de marcas com seus respectivos códigos:
     ~~~~
-    Retorno omitido
-    
-    Cód: 5 Descrição: Asia Motors
-    
-    Cód: 21 Descrição: Fiat
-    
+   Cód: 21 Descrição: Fiat
     Cód: 54 Descrição: Subaru
-    
-    Cód: 55 Descrição: Suzuki
-    
-    Cód: 56 Descrição: Toyota
-    
-    Cód: 57 Descrição: Troller
-    
-    Cód: 58 Descrição: Volvo
-    
     Cód: 59 Descrição: VW - VolksWagen
-    
-    Cód: 6 Descrição: Audi
-    
-    Cód: 7 Descrição: BMW
-    
-    Cód: 8 Descrição: BRM
-    
+    ...
     Informe o código da marca para consulta:
     ~~~~
 - Então, pela string, a Fiat é a 21. Vamos escrever que queremos consultar a marca 21.
@@ -105,25 +85,14 @@
   
   Cód: 4674 Descrição: Palio Weekend Trekking 1.4 Fire Flex 8V
   
-  Cód: 5412 Descrição: Palio Weekend Trekking 1.6 Flex 16V 5p
-  
-  Cód: 5063 Descrição: Palio Weekend Trekking 1.8 mpi Flex 8V
-  
-  Cód: 562 Descrição: Palio Young 1.0 mpi 8v 2p
-  
-  Cód: 563 Descrição: Palio Young 1.0 mpi 8v 4p
-  
-  Cód: 564 Descrição: Palio Young 1.0 mpi Fire 8V 2p
-  
-  Cód: 565 Descrição: Palio Young 1.0 mpi Fire 8V 4p
-  
   Digite o código do modelo para consultar valores:
   ~~~~
 - Vamos escolher, por exemplo, o código 545, referente ao Palio Weekend.
   ~~~~
   545
   ~~~~
-- E a ideia do processo é que ele mostre todos os anos cadastrados lá na tabela FIPE e seus valores.
+- Consulta de Preços por Ano:
+    - Após selecionar o modelo, a aplicação exibirá os preços de todos os anos disponíveis para o veículo escolhido:
   ~~~~
   Todos os veículos com os valores por ano:
 
@@ -137,9 +106,13 @@
   
   Veiculo [valor R$ 10.788,00, marca=Fiat, modelo=Palio Weekend Adventure 1.6 8V/16V, ano=1999, combustivel=Gasolina
   ~~~~
-# Desafios Enfrentados no Desenvolvimento
-- Enfrentei o desafio de manipular os dados recebidos em uma lista. Após muita pesquisa, descobri a importância da biblioteca TypeReference, que informa ao Jackson que o objeto a ser deserializado é uma lista de DadosVeiculo. Com         isso, consegui armazenar e listar os dados de forma eficiente.
-- Mas o maior dos desafios foi a implementação da consulta que busca informações detalhadas dos veículos. Para isso, precisei iterar sobre cada ano obtido para um modelo específico, modificando a URL em cada iteração para coletar todos os dados registrados.         Inicialmente, considerei uma abordagem "manual" utilizando um loop for para essa tarefa.
+## Desafios no Desenvolvimento
+### Deserialização e Manipulação de Listas
+- Ao trabalhar com a API FIPE, foi necessário deserializar a resposta JSON em uma lista de objetos. A biblioteca TypeReference do Jackson foi essencial para informar que os dados deveriam ser convertidos para uma lista de objetos específicos (DadosVeiculo).
+  
+### Consulta Detalhada dos Veículos
+- Um dos maiores desafios foi a implementação da busca por informações detalhadas dos veículos por ano. Inicialmente, usei um loop for para iterar sobre cada ano e obter os dados detalhados, mas depois otimizei o código utilizando Streams e Lambdas, como mostrado abaixo:
+    - Implementação Inicial
   ~~~~
   var jsonAnos = consumo.obterDados(ENDERECO + endpoint + MARCAS + codigoMarca + MODELOS + codigoModelo + ANOS);
   List<DadosVeiculo> listaAnos = conversor.obterListaDados(jsonAnos, new TypeReference<List<DadosVeiculo>>() {});
@@ -153,7 +126,7 @@
             }
   ~~~~
 
-    Após conseguir os resultados esperados, busquei otimizar o código, explorando como poderia utilizar streams e lambdas para realizar essa consulta de maneira mais funcional. Depois de algumas pesquisas e testes, finalizei a implementação, obtendo o resultado que     atendia ao desafio proposto de forma eficiente.
+   - Implementação Otimizada com Streams e Lambdas
   ~~~~
    var jsonAnos = consumo.obterDados(ENDERECO + endpoint + MARCAS + codigoMarca + MODELOS + codigoModelo + ANOS);
    List<DadosVeiculo> listaAnos = conversor.obterListaDados(jsonAnos, new TypeReference<List<DadosVeiculo>>() {});
@@ -169,4 +142,26 @@
                         System.out.println(detalhesVeiculo.toString());
                     });
   ~~~~
-
+  
+## Como Executar o Projeto
+- Clone este repositório:
+  ~~~~
+  git clone https://github.com/usuario/tabela-fipe-cli.git
+  ~~~~
+- Acesse a pasta do projeto:
+  ~~~~
+  cd tabela-fipe-cli
+  ~~~~
+- Execute o projeto:
+  ~~~~
+  ./mvnw spring-boot:run
+  ~~~~
+## Tecnologias Utilizadas
+- Java 21 LTS
+- Spring Boot
+- API REST FIPE
+- Jackson (para serialização/deserialização de JSON)
+- Maven
+  
+## Conclusão
+- Este projeto foi uma oportunidade de consolidar o aprendizado do curso "Java: Trabalhando com Lambdas, Streams e Spring Framework", aplicando conceitos importantes na integração com APIs externas e manipulando dados de maneira eficiente com Streams e Lambdas.
