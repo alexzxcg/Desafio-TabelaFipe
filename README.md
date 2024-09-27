@@ -146,11 +146,11 @@
 ## Como Executar o Projeto
 - Clone este repositório:
   ~~~~
-  git clone https://github.com/usuario/tabela-fipe-cli.git
+  git clone git@github.com:alexzxcg/Desafio-TabelaFipe.git
   ~~~~
 - Acesse a pasta do projeto:
   ~~~~
-  cd tabela-fipe-cli
+  cd tabela-fipe
   ~~~~
 - Execute o projeto:
   ~~~~
